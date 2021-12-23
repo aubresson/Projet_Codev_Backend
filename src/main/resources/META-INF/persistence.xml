@@ -5,5 +5,14 @@
              version="3.0">
   <persistence-unit name="default">
 
+      <class>com.codev.domain.Car</class>
+      <class>com.codev.domain.Place</class>
+      <class>com.codev.domain.User</class>
+      <class>com.codev.domain.UserCar</class>
+      <class>com.codev.domain.UserPlace</class>
+      <properties>
+          <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/codev"/>
+          <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
+      </properties>
   </persistence-unit>
 </persistence>

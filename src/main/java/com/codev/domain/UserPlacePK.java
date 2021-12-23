@@ -1,14 +1,14 @@
-package com.example.projetcodevback.domain;
+package com.codev.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
 import java.io.Serializable;
 
-public class UserCarEntityPK implements Serializable {
+public class UserPlacePK implements Serializable {
     private int userId;
-    private int carId;
+    private int placeId;
 
-    @Column(name = "user_id")
+    @Column(name = "user_id", nullable = false)
     @Id
     public int getUserId() {
         return userId;
@@ -18,14 +18,14 @@ public class UserCarEntityPK implements Serializable {
         this.userId = userId;
     }
 
-    @Column(name = "car_id")
+    @Column(name = "place_id", nullable = false)
     @Id
-    public int getCarId() {
-        return carId;
+    public int getPlaceId() {
+        return placeId;
     }
 
-    public void setCarId(int carId) {
-        this.carId = carId;
+    public void setPlaceId(int placeId) {
+        this.placeId = placeId;
     }
 
     @Override
@@ -33,10 +33,10 @@ public class UserCarEntityPK implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        UserCarEntityPK that = (UserCarEntityPK) o;
+        UserPlacePK that = (UserPlacePK) o;
 
         if (userId != that.userId) return false;
-        if (carId != that.carId) return false;
+        if (placeId != that.placeId) return false;
 
         return true;
     }
@@ -44,7 +44,7 @@ public class UserCarEntityPK implements Serializable {
     @Override
     public int hashCode() {
         int result = userId;
-        result = 31 * result + carId;
+        result = 31 * result + placeId;
         return result;
     }
 }

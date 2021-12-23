@@ -1,16 +1,15 @@
-package com.example.projetcodevback.domain;
+package com.codev.domain;
 
 import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-@Table(name = "place", schema = "codev", catalog = "")
-public class PlaceEntity {
+public class Place {
     private int id;
     private String address;
     private double latitude;
     private double longitude;
-    private Collection<UserPlaceEntity> userPlacesById;
+    private Collection<UserPlace> userPlacesById;
 
     @Id
     @Column(name = "id")
@@ -57,12 +56,12 @@ public class PlaceEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PlaceEntity that = (PlaceEntity) o;
+        Place place = (Place) o;
 
-        if (id != that.id) return false;
-        if (Double.compare(that.latitude, latitude) != 0) return false;
-        if (Double.compare(that.longitude, longitude) != 0) return false;
-        if (address != null ? !address.equals(that.address) : that.address != null) return false;
+        if (id != place.id) return false;
+        if (Double.compare(place.latitude, latitude) != 0) return false;
+        if (Double.compare(place.longitude, longitude) != 0) return false;
+        if (address != null ? !address.equals(place.address) : place.address != null) return false;
 
         return true;
     }
@@ -81,11 +80,11 @@ public class PlaceEntity {
     }
 
     @OneToMany(mappedBy = "placeByPlaceId")
-    public Collection<UserPlaceEntity> getUserPlacesById() {
+    public Collection<UserPlace> getUserPlacesById() {
         return userPlacesById;
     }
 
-    public void setUserPlacesById(Collection<UserPlaceEntity> userPlacesById) {
+    public void setUserPlacesById(Collection<UserPlace> userPlacesById) {
         this.userPlacesById = userPlacesById;
     }
 }

@@ -1,10 +1,10 @@
-package com.example.projetcodevback;
+package com.codev;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ProjetCodevBackApplicationTests {
+class ProjetCodevBackendApplicationTests {
 
     @Test
     void contextLoads() {

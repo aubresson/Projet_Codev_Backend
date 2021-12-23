@@ -1,17 +1,16 @@
-package com.example.projetcodevback.domain;
+package com.codev.domain;
 
 import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-@Table(name = "car", schema = "codev", catalog = "")
-public class CarEntity {
+public class Car {
     private int id;
     private String modele;
     private String marque;
     private String carburant;
     private int annee;
-    private Collection<UserCarEntity> userCarsById;
+    private Collection<UserCar> userCarsById;
 
     @Id
     @Column(name = "id")
@@ -68,13 +67,13 @@ public class CarEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        CarEntity carEntity = (CarEntity) o;
+        Car car = (Car) o;
 
-        if (id != carEntity.id) return false;
-        if (annee != carEntity.annee) return false;
-        if (modele != null ? !modele.equals(carEntity.modele) : carEntity.modele != null) return false;
-        if (marque != null ? !marque.equals(carEntity.marque) : carEntity.marque != null) return false;
-        if (carburant != null ? !carburant.equals(carEntity.carburant) : carEntity.carburant != null) return false;
+        if (id != car.id) return false;
+        if (annee != car.annee) return false;
+        if (modele != null ? !modele.equals(car.modele) : car.modele != null) return false;
+        if (marque != null ? !marque.equals(car.marque) : car.marque != null) return false;
+        if (carburant != null ? !carburant.equals(car.carburant) : car.carburant != null) return false;
 
         return true;
     }
@@ -90,11 +89,11 @@ public class CarEntity {
     }
 
     @OneToMany(mappedBy = "carByCarId")
-    public Collection<UserCarEntity> getUserCarsById() {
+    public Collection<UserCar> getUserCarsById() {
         return userCarsById;
     }
 
-    public void setUserCarsById(Collection<UserCarEntity> userCarsById) {
+    public void setUserCarsById(Collection<UserCar> userCarsById) {
         this.userCarsById = userCarsById;
     }
 }

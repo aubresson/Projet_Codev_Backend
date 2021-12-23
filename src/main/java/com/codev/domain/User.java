@@ -1,21 +1,17 @@
-package com.example.projetcodevback.domain;
+package com.codev.domain;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.Objects;
 
 @Entity
-@Table(name = "user", schema = "codev", catalog = "")
-public class UserEntity {
+public class User {
     private int id;
     private String name;
     private String surname;
     private String username;
     private String password;
-    private Collection<UserCarEntity> userCarsById;
-    private Collection<UserCarEntity> userCarsById_0;
-    private Collection<UserCarEntity> userCarsById_1;
-    private Collection<UserPlaceEntity> userPlacesById;
+    private Collection<UserCar> userCarsById;
+    private Collection<UserPlace> userPlacesById;
 
     @Id
     @Column(name = "id")
@@ -72,13 +68,13 @@ public class UserEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        UserEntity that = (UserEntity) o;
+        User user = (User) o;
 
-        if (id != that.id) return false;
-        if (!Objects.equals(name, that.name)) return false;
-        if (!Objects.equals(surname, that.surname)) return false;
-        if (!Objects.equals(username, that.username)) return false;
-        if (!Objects.equals(password, that.password)) return false;
+        if (id != user.id) return false;
+        if (name != null ? !name.equals(user.name) : user.name != null) return false;
+        if (surname != null ? !surname.equals(user.surname) : user.surname != null) return false;
+        if (username != null ? !username.equals(user.username) : user.username != null) return false;
+        if (password != null ? !password.equals(user.password) : user.password != null) return false;
 
         return true;
     }
@@ -94,38 +90,20 @@ public class UserEntity {
     }
 
     @OneToMany(mappedBy = "userByUserId")
-    public Collection<UserCarEntity> getUserCarsById() {
+    public Collection<UserCar> getUserCarsById() {
         return userCarsById;
     }
 
-    public void setUserCarsById(Collection<UserCarEntity> userCarsById) {
+    public void setUserCarsById(Collection<UserCar> userCarsById) {
         this.userCarsById = userCarsById;
     }
 
-    @OneToMany(mappedBy = "userByUserId_0")
-    public Collection<UserCarEntity> getUserCarsById_0() {
-        return userCarsById_0;
-    }
-
-    public void setUserCarsById_0(Collection<UserCarEntity> userCarsById_0) {
-        this.userCarsById_0 = userCarsById_0;
-    }
-
-    @OneToMany(mappedBy = "userByUserId_1")
-    public Collection<UserCarEntity> getUserCarsById_1() {
-        return userCarsById_1;
-    }
-
-    public void setUserCarsById_1(Collection<UserCarEntity> userCarsById_1) {
-        this.userCarsById_1 = userCarsById_1;
-    }
-
     @OneToMany(mappedBy = "userByUserId")
-    public Collection<UserPlaceEntity> getUserPlacesById() {
+    public Collection<UserPlace> getUserPlacesById() {
         return userPlacesById;
     }
 
-    public void setUserPlacesById(Collection<UserPlaceEntity> userPlacesById) {
+    public void setUserPlacesById(Collection<UserPlace> userPlacesById) {
         this.userPlacesById = userPlacesById;
     }
 }
