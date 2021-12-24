@@ -10,7 +10,6 @@ public class Car {
     private String marque;
     private String carburant;
     private int annee;
-    private Collection<UserCar> userCarsById;
 
     @Id
     @Column(name = "id")
@@ -86,14 +85,5 @@ public class Car {
         result = 31 * result + (carburant != null ? carburant.hashCode() : 0);
         result = 31 * result + annee;
         return result;
-    }
-
-    @OneToMany(mappedBy = "carByCarId")
-    public Collection<UserCar> getUserCarsById() {
-        return userCarsById;
-    }
-
-    public void setUserCarsById(Collection<UserCar> userCarsById) {
-        this.userCarsById = userCarsById;
     }
 }

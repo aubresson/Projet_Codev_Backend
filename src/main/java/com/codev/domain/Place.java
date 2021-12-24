@@ -9,7 +9,6 @@ public class Place {
     private String address;
     private double latitude;
     private double longitude;
-    private Collection<UserPlace> userPlacesById;
 
     @Id
     @Column(name = "id")
@@ -77,14 +76,5 @@ public class Place {
         temp = Double.doubleToLongBits(longitude);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
-    }
-
-    @OneToMany(mappedBy = "placeByPlaceId")
-    public Collection<UserPlace> getUserPlacesById() {
-        return userPlacesById;
-    }
-
-    public void setUserPlacesById(Collection<UserPlace> userPlacesById) {
-        this.userPlacesById = userPlacesById;
     }
 }

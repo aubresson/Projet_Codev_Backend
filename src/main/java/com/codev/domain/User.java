@@ -10,8 +10,6 @@ public class User {
     private String surname;
     private String username;
     private String password;
-    private Collection<UserCar> userCarsById;
-    private Collection<UserPlace> userPlacesById;
 
     @Id
     @Column(name = "id")
@@ -87,23 +85,5 @@ public class User {
         result = 31 * result + (username != null ? username.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         return result;
-    }
-
-    @OneToMany(mappedBy = "userByUserId")
-    public Collection<UserCar> getUserCarsById() {
-        return userCarsById;
-    }
-
-    public void setUserCarsById(Collection<UserCar> userCarsById) {
-        this.userCarsById = userCarsById;
-    }
-
-    @OneToMany(mappedBy = "userByUserId")
-    public Collection<UserPlace> getUserPlacesById() {
-        return userPlacesById;
-    }
-
-    public void setUserPlacesById(Collection<UserPlace> userPlacesById) {
-        this.userPlacesById = userPlacesById;
     }
 }
