@@ -2,8 +2,10 @@ package com.codev.domain;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Objects;
 
 @Entity
+@Table(name = "car", schema = "codev", catalog = "")
 public class Car {
     private int id;
     private String modele;
@@ -12,7 +14,8 @@ public class Car {
     private int annee;
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -65,25 +68,12 @@ public class Car {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
-        Car car = (Car) o;
-
-        if (id != car.id) return false;
-        if (annee != car.annee) return false;
-        if (modele != null ? !modele.equals(car.modele) : car.modele != null) return false;
-        if (marque != null ? !marque.equals(car.marque) : car.marque != null) return false;
-        if (carburant != null ? !carburant.equals(car.carburant) : car.carburant != null) return false;
-
-        return true;
+        Car carEntity = (Car) o;
+        return id == carEntity.id && annee == carEntity.annee && Objects.equals(modele, carEntity.modele) && Objects.equals(marque, carEntity.marque) && Objects.equals(carburant, carEntity.carburant);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (modele != null ? modele.hashCode() : 0);
-        result = 31 * result + (marque != null ? marque.hashCode() : 0);
-        result = 31 * result + (carburant != null ? carburant.hashCode() : 0);
-        result = 31 * result + annee;
-        return result;
+        return Objects.hash(id, modele, marque, carburant, annee);
     }
 }

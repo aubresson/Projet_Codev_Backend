@@ -1,6 +1,11 @@
 package com.codev.domain;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
+import java.sql.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "user_place", schema = "codev", catalog = "")
@@ -8,11 +13,13 @@ import javax.persistence.*;
 public class UserPlace {
     private int userId;
     private int placeId;
-    private User userByUserId;
-    private Place placeByPlaceId;
+    private String favorite;
+    private Date date_research;
+    private User user;
+    private Place place;
 
     @Id
-    @Column(name = "user_id")
+    @Column(name = "user_id",nullable = false)
     public int getUserId() {
         return userId;
     }
@@ -22,7 +29,7 @@ public class UserPlace {
     }
 
     @Id
-    @Column(name = "place_id")
+    @Column(name = "place_id", nullable = false)
     public int getPlaceId() {
         return placeId;
     }
@@ -31,43 +38,58 @@ public class UserPlace {
         this.placeId = placeId;
     }
 
+    @Basic
+    @Column(name = "favorite")
+    public String getFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(String favorite) {
+        this.favorite = favorite;
+    }
+
+    @Basic
+    @Column(name = "date_research")
+    public Date getDate_research() {
+        return date_research;
+    }
+
+    public void setDate_research(Date date_research) {
+        this.date_research = date_research;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
-        UserPlace userPlace = (UserPlace) o;
-
-        if (userId != userPlace.userId) return false;
-        if (placeId != userPlace.placeId) return false;
-
-        return true;
+        UserPlace that = (UserPlace) o;
+        return userId == that.userId && placeId == that.placeId;
     }
 
     @Override
     public int hashCode() {
-        int result = userId;
-        result = 31 * result + placeId;
-        return result;
+        return Objects.hash(userId, placeId);
     }
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
-    public User getUserByUserId() {
-        return userByUserId;
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    public User getUser() {
+        return user;
     }
 
-    public void setUserByUserId(User userByUserId) {
-        this.userByUserId = userByUserId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @ManyToOne
     @JoinColumn(name = "place_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
-    public Place getPlaceByPlaceId() {
-        return placeByPlaceId;
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    public Place getPlace() {
+        return place;
     }
 
-    public void setPlaceByPlaceId(Place placeByPlaceId) {
-        this.placeByPlaceId = placeByPlaceId;
+    public void setPlace(Place place) {
+        this.place = place;
     }
 }

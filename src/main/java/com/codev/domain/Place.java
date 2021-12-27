@@ -2,8 +2,10 @@ package com.codev.domain;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Objects;
 
 @Entity
+@Table(name = "place", schema = "codev", catalog = "")
 public class Place {
     private int id;
     private String address;
@@ -11,7 +13,8 @@ public class Place {
     private double longitude;
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -54,27 +57,12 @@ public class Place {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
-        Place place = (Place) o;
-
-        if (id != place.id) return false;
-        if (Double.compare(place.latitude, latitude) != 0) return false;
-        if (Double.compare(place.longitude, longitude) != 0) return false;
-        if (address != null ? !address.equals(place.address) : place.address != null) return false;
-
-        return true;
+        Place that = (Place) o;
+        return id == that.id && Double.compare(that.latitude, latitude) == 0 && Double.compare(that.longitude, longitude) == 0 && Objects.equals(address, that.address);
     }
 
     @Override
     public int hashCode() {
-        int result;
-        long temp;
-        result = id;
-        result = 31 * result + (address != null ? address.hashCode() : 0);
-        temp = Double.doubleToLongBits(latitude);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(longitude);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        return result;
+        return Objects.hash(id, address, latitude, longitude);
     }
 }

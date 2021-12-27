@@ -3,6 +3,7 @@ package com.codev.domain;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.Objects;
 
 public class UserCarPK implements Serializable {
     private int userId;
@@ -32,19 +33,12 @@ public class UserCarPK implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
-        UserCarPK userCarPK = (UserCarPK) o;
-
-        if (userId != userCarPK.userId) return false;
-        if (carId != userCarPK.carId) return false;
-
-        return true;
+        UserCarPK that = (UserCarPK) o;
+        return userId == that.userId && carId == that.carId;
     }
 
     @Override
     public int hashCode() {
-        int result = userId;
-        result = 31 * result + carId;
-        return result;
+        return Objects.hash(userId, carId);
     }
 }
