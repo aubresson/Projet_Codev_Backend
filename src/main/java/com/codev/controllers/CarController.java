@@ -22,10 +22,10 @@ public class CarController {
     }
 
     @GetMapping("/user/{user_id}")
-    public List<Car> list(@PathVariable int user_id) {
+    public List<Car> list(@PathVariable int user_id, @RequestParam("code") String code) {
         List<Car> cars = null;
         try {
-            cars = this.carService.list(user_id);
+            cars = this.carService.list(user_id, code);
         } catch (Exception e) {
             ResponseEntity.notFound().build();
         }
@@ -33,10 +33,10 @@ public class CarController {
     }
 
     @GetMapping("/favorite/{user_id}")
-    public List<Car> listFavorite(@PathVariable int user_id) {
+    public List<Car> listFavorite(@PathVariable int user_id, @RequestParam("code") String code) {
         List<Car> cars = null;
         try {
-            cars = this.carService.listFavorite(user_id);
+            cars = this.carService.listFavorite(user_id, code);
         } catch (Exception e) {
             ResponseEntity.notFound().build();
         }
@@ -44,10 +44,10 @@ public class CarController {
     }
 
     @GetMapping("/user/lastCars/{user_id}")
-    public List<Car> listLastCars(@PathVariable int user_id) {
+    public List<Car> listLastCars(@PathVariable int user_id, @RequestParam("code") String code) {
         List<Car> cars = null;
         try {
-            cars = this.carService.listLastCars(user_id);
+            cars = this.carService.listLastCars(user_id, code);
         } catch (Exception e) {
             ResponseEntity.notFound().build();
         }
@@ -55,8 +55,8 @@ public class CarController {
     }
 
     @PutMapping("/{id}")
-    public Car update(@PathVariable int id, @RequestBody Car car){
-        return this.carService.update(id, car);
+    public Car update(@PathVariable int id, @RequestBody Car car, @RequestParam("code") String code){
+        return this.carService.update(id, car, code);
     }
 
     @PostMapping()
@@ -67,45 +67,45 @@ public class CarController {
     }
 
     @PostMapping("/delete/{id}")
-    public ResponseEntity<Object> delete(@PathVariable int id){
+    public ResponseEntity<Object> delete(@PathVariable int id, @RequestParam("code") String code){
         try {
-            this.carService.delete(id);
+            this.carService.delete(id, code);
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(String.format("Car with id = %s is deleted successfully", id), HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("user/delete/{user_id}")
-    public ResponseEntity<Object> deleteForUser(@PathVariable int user_id, @RequestParam("car_id") int car_id){
+    public ResponseEntity<Object> deleteForUser(@PathVariable int user_id, @RequestParam("car_id") int car_id,
+                                                @RequestParam("code") String code){
         try {
-            this.carService.deleteForUser(user_id, car_id);
+            this.carService.deleteForUser(user_id, car_id, code);
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(String.format("Car with id = %s for user %s is deleted successfully", car_id, user_id),
-                HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("user/changeDateResearch/{user_id}")
-    public ResponseEntity<Object> changeDateResearch(@PathVariable int user_id, @RequestParam("car_id") int car_id){
+    public ResponseEntity<Object> changeDateResearch(@PathVariable int user_id, @RequestParam("car_id") int car_id,
+                                                     @RequestParam("code") String code){
         try {
-            this.carService.changeDateResearch(user_id, car_id);
+            this.carService.changeDateResearch(user_id, car_id, code);
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(String.format("Car with id = %s for user %s is updated successfully", car_id, user_id),
-                HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("user/changeFavorite/{user_id}")
-    public ResponseEntity<Object> changeFavorite(@PathVariable int user_id, @RequestParam("car_id") int car_id){
+    public ResponseEntity<Object> changeFavorite(@PathVariable int user_id, @RequestParam("car_id") int car_id,
+                                                 @RequestParam("code") String code){
         try {
-            this.carService.changeFavorite(user_id, car_id);
+            this.carService.changeFavorite(user_id, car_id, code);
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(String.format("Car with id = %s for user %s is updated successfully", car_id, user_id),
-                HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

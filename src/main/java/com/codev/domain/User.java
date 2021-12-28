@@ -12,6 +12,8 @@ public class User {
     private String firstname;
     private String username;
     private String password;
+    private String role;
+    private String code;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -62,6 +64,26 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Basic
+    @Column(name = "role")
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    @Basic
+    @Column(name = "code")
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     @Override

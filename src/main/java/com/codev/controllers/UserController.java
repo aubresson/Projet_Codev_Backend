@@ -22,10 +22,10 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> list() {
+    public List<User> list(@RequestParam("code") String code) {
         List<User> users = null;
         try {
-            users = this.userService.list();
+            users = this.userService.list(code);
         } catch (Exception e) {
             ResponseEntity.notFound().build();
         }
@@ -33,10 +33,10 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public User get(@PathVariable int id){
+    public User get(@PathVariable int id, @RequestParam("code") String code){
         User movie = null;
         try{
-            movie = this.userService.get(id);
+            movie = this.userService.get(id, code);
         } catch (Exception e){
             ResponseEntity.notFound().build();
         }
@@ -44,8 +44,8 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public User update(@PathVariable int id, @RequestBody User user){
-        return this.userService.update(id, user);
+    public User update(@PathVariable int id, @RequestBody User user, @RequestParam("code") String code){
+        return this.userService.update(id, user, code);
     }
 
     @PostMapping()
@@ -56,12 +56,12 @@ public class UserController {
     }
 
     @PostMapping("/delete/{id}")
-    public ResponseEntity<Object> delete(@PathVariable int id){
+    public ResponseEntity<Object> delete(@PathVariable int id, @RequestParam("code") String code){
         try {
-            this.userService.delete(id);
+            this.userService.delete(id, code);
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(String.format("User with id = %s is deleted successfully", id), HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

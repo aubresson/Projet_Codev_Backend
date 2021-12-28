@@ -2,6 +2,7 @@ package com.codev.services;
 
 import com.codev.domain.LogiParam;
 import com.codev.domain.User;
+import com.codev.domain.UserCodeId;
 import com.codev.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,11 +16,12 @@ public class AuthentificationService implements IAuthentificationService {
     public AuthentificationService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+
     @Override
-    public User authentification(LogiParam unUti)
+    public UserCodeId authentification(LogiParam unUti)
     {
-        User user = null;
-        String login = unUti.getNomUtil();
+        User user;
+        UserCodeId userCodeId = new UserCodeId();
         String pwd = unUti.getPassword();
         user = userRepository.findByUsername(unUti.getNomUtil());
         if (user != null) {
@@ -34,6 +36,8 @@ public class AuthentificationService implements IAuthentificationService {
                 throw e;
             }
         }
-        return user;
+        userCodeId.setCode(user.getCode());
+        userCodeId.setId(user.getId());
+        return userCodeId;
     }
 }

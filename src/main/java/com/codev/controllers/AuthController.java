@@ -2,6 +2,7 @@ package com.codev.controllers;
 
 import com.codev.domain.LogiParam;
 import com.codev.domain.User;
+import com.codev.domain.UserCodeId;
 import com.codev.services.AuthentificationService;
 import com.codev.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +28,8 @@ public class AuthController {
 
     //Authentification en méthode POST
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public  ResponseEntity<?>  authentification(@RequestBody LogiParam unUti) {
-
-        User user;
+    public  ResponseEntity<?> authentification(@RequestBody LogiParam unUti) {
+        UserCodeId user;
         try {
             user = authentificationService.authentification(unUti);
             return ResponseEntity.ok(user);

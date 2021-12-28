@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserService implements IUserService {
@@ -18,8 +19,18 @@ public class UserService implements IUserService {
         this.userRepository = userRepository;
     }
 
-    public List<User> list() {
-        return this.userRepository.findAll();
+    public List<User> list(String code) {
+        if (userRepository.isAdmin(code)) {
+            return this.userRepository.findAll();
+        }
+        return null;
+    }
+
+    public User get(int id, String code) {
+        if (userRepository.isAdmin(code)) {
+            return this.userRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        }
+        return null;
     }
 
     public User get(int id) {
@@ -27,31 +38,37 @@ public class UserService implements IUserService {
     }
 
     public User create(User user){
+        user.setCode(UUID.randomUUID().toString());
+        user.setRole("user");
         return this.userRepository.saveAndFlush(user);
     }
 
-    public User update(int id, User user){
-        if (this.userRepository.existsById(id)){
+    public User update(int id, User user, String code){
+        if (this.userRepository.existsById(id)) {
             User newUser = this.userRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-            if (user.getName() != null){
-                newUser.setName(user.getName());
+            if (userRepository.correctCode(code, newUser.getId()) || userRepository.isAdmin(code)) {
+                if (user.getName() != null) {
+                    newUser.setName(user.getName());
+                }
+                if (user.getFirstname() != null) {
+                    newUser.setFirstname(user.getFirstname());
+                }
+                if (user.getUsername() != null) {
+                    newUser.setUsername(user.getUsername());
+                }
+                if (user.getPassword() != null) {
+                    newUser.setPassword(user.getPassword());
+                }
+                return this.userRepository.saveAndFlush(newUser);
             }
-            if (user.getFirstname() != null){
-                newUser.setFirstname(user.getFirstname());
-            }
-            if (user.getUsername() != null){
-                newUser.setUsername(user.getUsername());
-            }
-            if (user.getPassword() != null){
-                newUser.setPassword(user.getPassword());
-            }
-            return this.userRepository.saveAndFlush(newUser);
         }
         return null;
     }
 
-    public void delete(int id) {
-        this.userRepository.delete(this.get(id));
+    public void delete(int id, String code) {
+        if (userRepository.correctCode(code, id) || userRepository.isAdmin(code)) {
+            this.userRepository.delete(this.get(id));
+        }
     }
 }
 
