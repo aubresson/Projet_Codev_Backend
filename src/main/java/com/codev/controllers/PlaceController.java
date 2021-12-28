@@ -1,7 +1,9 @@
 package com.codev.controllers;
 
 import com.codev.domain.Car;
+import com.codev.domain.Place;
 import com.codev.services.CarService;
+import com.codev.services.PlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,64 +14,64 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/cars")
-public class CarController {
-    private final CarService carService;
+@RequestMapping("/places")
+public class PlaceController {
+    private final PlaceService placeService;
 
     @Autowired
-    public CarController(CarService carService) {
-        this.carService = carService;
+    public PlaceController(PlaceService placeService) {
+        this.placeService = placeService;
     }
 
     @GetMapping("/user/{user_id}")
-    public List<Car> list(@PathVariable int user_id, @RequestParam("code") String code) {
-        List<Car> cars = null;
+    public List<Place> list(@PathVariable int user_id, @RequestParam("code") String code) {
+        List<Place> places = null;
         try {
-            cars = this.carService.list(user_id, code);
+            places = this.placeService.list(user_id, code);
         } catch (Exception e) {
             ResponseEntity.notFound().build();
         }
-        return cars;
+        return places;
     }
 
     @GetMapping("/favorite/{user_id}")
-    public List<Car> listFavorite(@PathVariable int user_id, @RequestParam("code") String code) {
-        List<Car> cars = null;
+    public List<Place> listFavorite(@PathVariable int user_id, @RequestParam("code") String code) {
+        List<Place> places = null;
         try {
-            cars = this.carService.listFavorite(user_id, code);
+            places = this.placeService.listFavorite(user_id, code);
         } catch (Exception e) {
             ResponseEntity.notFound().build();
         }
-        return cars;
+        return places;
     }
 
-    @GetMapping("/lastCars/{user_id}")
-    public List<Car> listLastCars(@PathVariable int user_id, @RequestParam("code") String code) {
-        List<Car> cars = null;
+    @GetMapping("/lastPlaces/{user_id}")
+    public List<Place> listLastCars(@PathVariable int user_id, @RequestParam("code") String code) {
+        List<Place> places = null;
         try {
-            cars = this.carService.listLastCars(user_id, code);
+            places = this.placeService.listLastPlaces(user_id, code);
         } catch (Exception e) {
             ResponseEntity.notFound().build();
         }
-        return cars;
+        return places;
     }
 
     @PutMapping("/{id}")
-    public Car update(@PathVariable int id, @RequestBody Car car, @RequestParam("code") String code){
-        return this.carService.update(id, car, code);
+    public Place update(@PathVariable int id, @RequestBody Place place, @RequestParam("code") String code){
+        return this.placeService.update(id, place, code);
     }
 
     @PostMapping()
-    public Car create(@RequestBody Car car, HttpServletResponse response){
-        Car createdCar = carService.create(car);
+    public Place create(@RequestBody Place place, HttpServletResponse response){
+        Place createdPlace = placeService.create(place);
         response.setStatus(HttpStatus.CREATED.value());
-        return createdCar;
+        return createdPlace;
     }
 
     @PostMapping("/delete/{id}")
     public ResponseEntity<Object> delete(@PathVariable int id, @RequestParam("code") String code){
         try {
-            this.carService.delete(id, code);
+            this.placeService.delete(id, code);
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -77,10 +79,10 @@ public class CarController {
     }
 
     @PostMapping("/user/delete/{user_id}")
-    public ResponseEntity<Object> deleteForUser(@PathVariable int user_id, @RequestParam("car_id") int car_id,
+    public ResponseEntity<Object> deleteForUser(@PathVariable int user_id, @RequestParam("place_id") int place_id,
                                                 @RequestParam("code") String code){
         try {
-            this.carService.deleteForUser(user_id, car_id, code);
+            this.placeService.deleteForUser(user_id, place_id, code);
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -88,10 +90,10 @@ public class CarController {
     }
 
     @PutMapping("/changeDateResearch/{user_id}")
-    public ResponseEntity<Object> changeDateResearch(@PathVariable int user_id, @RequestParam("car_id") int car_id,
+    public ResponseEntity<Object> changeDateResearch(@PathVariable int user_id, @RequestParam("place_id") int place_id,
                                                      @RequestParam("code") String code){
         try {
-            this.carService.changeDateResearch(user_id, car_id, code);
+            this.placeService.changeDateResearch(user_id, place_id, code);
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -99,10 +101,10 @@ public class CarController {
     }
 
     @PutMapping("/changeFavorite/{user_id}")
-    public ResponseEntity<Object> changeFavorite(@PathVariable int user_id, @RequestParam("car_id") int car_id,
+    public ResponseEntity<Object> changeFavorite(@PathVariable int user_id, @RequestParam("place_id") int place_id,
                                                  @RequestParam("code") String code){
         try {
-            this.carService.changeFavorite(user_id, car_id, code);
+            this.placeService.changeFavorite(user_id, place_id, code);
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

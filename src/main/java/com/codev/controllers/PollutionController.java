@@ -1,0 +1,72 @@
+package com.codev.controllers;
+
+import com.codev.services.CarService;
+import com.codev.services.PollutionService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+
+import javax.websocket.server.PathParam;
+import java.util.LinkedHashMap;
+import java.util.Objects;
+
+
+@RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+@RequestMapping("/pollution")
+public class PollutionController {
+    private String token = "fae9ff808ae67e1fb014cc038e677937b4511a5c";
+
+    private PollutionService pollutionService;
+
+    @Autowired
+    public PollutionController(PollutionService pollutionService) {
+        this.pollutionService = pollutionService;
+    }
+
+    @GetMapping
+    private Object getPollution(@RequestParam("latitude") String latitude, @RequestParam("longitude") String longitude)
+    {
+        final String uri = "https://api.waqi.info/feed/geo:" + latitude + ";" + longitude + "/?token=" + token;
+
+        Object result = null;
+        RestTemplate restTemplate = new RestTemplate();
+        try {
+            result = pollutionService.getPollution(Objects.requireNonNull(restTemplate.getForObject(uri, LinkedHashMap.class)));
+        } catch (Exception e) {
+            ResponseEntity.notFound().build();
+        }
+        return result;
+    }
+
+    @GetMapping("/nearestStations")
+    private Object getNearestStations(@RequestParam("latitude") String latitude, @RequestParam("longitude") String longitude)
+    {
+        final String uri = "https://api.waqi.info/mapq2/nearest?geo=1/" + latitude + "/" + longitude;
+
+        Object result = null;
+        RestTemplate restTemplate = new RestTemplate();
+        try {
+            result = pollutionService.getNearestStations(Objects.requireNonNull(restTemplate.getForObject(uri, LinkedHashMap.class)));
+        } catch (Exception e) {
+            ResponseEntity.notFound().build();
+        }
+        return result;
+    }
+
+    @GetMapping("/{station_id}")
+    private Object getPollution(@PathVariable int station_id)
+    {
+        final String uri = "https://api.waqi.info/feed/@" + station_id + "/?token=" + token;
+
+        Object result = null;
+        RestTemplate restTemplate = new RestTemplate();
+        try {
+            result = pollutionService.getPollution(Objects.requireNonNull(restTemplate.getForObject(uri, LinkedHashMap.class)));
+        } catch (Exception e) {
+            ResponseEntity.notFound().build();
+        }
+        return result;
+    }
+}

@@ -1,0 +1,45 @@
+package com.codev.services;
+
+import com.codev.domain.User;
+import com.codev.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.UUID;
+
+@Service
+public class PollutionService implements IPollutionService {
+
+
+    public LinkedHashMap<String, Object> getPollution(LinkedHashMap result) {
+        LinkedHashMap<String, Object> newResult = new LinkedHashMap<>();
+        newResult.put("city", ((LinkedHashMap)((LinkedHashMap)result.get("data")).get("city"))
+                .get("name"));
+        newResult.put("values", ((LinkedHashMap)result.get("data")).get("iaqi"));
+        newResult.put("lastDays", ((LinkedHashMap)((LinkedHashMap)result.get("data")).get("forecast"))
+                .get("daily"));
+        return newResult;
+    }
+
+    public ArrayList<Object> getNearestStations(LinkedHashMap result){
+        ArrayList<Object> newResult = new ArrayList<>();
+        int nbStations = 0;
+        for (Object station:(ArrayList)((LinkedHashMap)result.get("data")).get("stations")){
+            if (nbStations++ < 5) {
+                LinkedHashMap<String, Object> newHashMap = new LinkedHashMap<>();
+                newHashMap.put("id", ((LinkedHashMap) station).get("idx"));
+                newHashMap.put("address", ((LinkedHashMap) station).get("name"));
+                newHashMap.put("latitude", ((ArrayList) ((LinkedHashMap) station).get("geo")).get(0));
+                newHashMap.put("longitude", ((ArrayList) ((LinkedHashMap) station).get("geo")).get(1));
+                newHashMap.put("distance", ((LinkedHashMap) station).get("distance"));
+                newResult.add(newHashMap);
+            }
+        }
+        return newResult;
+    }
+}
+

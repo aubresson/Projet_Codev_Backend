@@ -1,6 +1,7 @@
 package com.codev.services;
 
 import com.codev.domain.Car;
+import com.codev.domain.Place;
 import com.codev.domain.User;
 import com.codev.domain.UserCar;
 import com.codev.repositories.CarRepository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -43,7 +45,15 @@ public class CarService implements ICarService {
 
     public List<Car> listLastCars(int user_id, String code) {
         if (userRepository.correctCode(code, user_id) || userRepository.isAdmin(code)) {
-            return this.carRepository.listLastCars(user_id);
+            List<Car> cars = this.carRepository.listLastCars(user_id);
+            List<Car> kept_cars = new ArrayList<>();
+            for (int i =0; i<3; i++) {
+                if (i == cars.size()) {
+                    break;
+                }
+                kept_cars.add(cars.get(i));
+            }
+            return kept_cars;
         }
         return null;
     }
