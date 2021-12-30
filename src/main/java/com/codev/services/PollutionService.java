@@ -19,8 +19,12 @@ public class PollutionService implements IPollutionService {
         LinkedHashMap<String, Object> newResult = new LinkedHashMap<>();
         newResult.put("city", ((LinkedHashMap)((LinkedHashMap)result.get("data")).get("city"))
                 .get("name"));
+        newResult.put("latitude", ((ArrayList)((LinkedHashMap)((LinkedHashMap)result.get("data")).get("city"))
+                .get("geo")).get(0));
+        newResult.put("longitude", ((ArrayList)((LinkedHashMap)((LinkedHashMap)result.get("data")).get("city"))
+                .get("geo")).get(1));
         newResult.put("values", ((LinkedHashMap)result.get("data")).get("iaqi"));
-        newResult.put("lastDays", ((LinkedHashMap)((LinkedHashMap)result.get("data")).get("forecast"))
+        newResult.put("nextDays", ((LinkedHashMap)((LinkedHashMap)result.get("data")).get("forecast"))
                 .get("daily"));
         return newResult;
     }

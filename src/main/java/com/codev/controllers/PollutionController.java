@@ -19,6 +19,7 @@ public class PollutionController {
     private String token = "fae9ff808ae67e1fb014cc038e677937b4511a5c";
 
     private PollutionService pollutionService;
+    private String baseURL = "https://api.waqi.info/";
 
     @Autowired
     public PollutionController(PollutionService pollutionService) {
@@ -28,7 +29,7 @@ public class PollutionController {
     @GetMapping
     private Object getPollution(@RequestParam("latitude") String latitude, @RequestParam("longitude") String longitude)
     {
-        final String uri = "https://api.waqi.info/feed/geo:" + latitude + ";" + longitude + "/?token=" + token;
+        final String uri = baseURL + "feed/geo:" + latitude + ";" + longitude + "/?token=" + token;
 
         Object result = null;
         RestTemplate restTemplate = new RestTemplate();
@@ -43,7 +44,7 @@ public class PollutionController {
     @GetMapping("/nearestStations")
     private Object getNearestStations(@RequestParam("latitude") String latitude, @RequestParam("longitude") String longitude)
     {
-        final String uri = "https://api.waqi.info/mapq2/nearest?geo=1/" + latitude + "/" + longitude;
+        final String uri = baseURL + "mapq2/nearest?geo=1/" + latitude + "/" + longitude;
 
         Object result = null;
         RestTemplate restTemplate = new RestTemplate();
@@ -58,7 +59,7 @@ public class PollutionController {
     @GetMapping("/{station_id}")
     private Object getPollution(@PathVariable int station_id)
     {
-        final String uri = "https://api.waqi.info/feed/@" + station_id + "/?token=" + token;
+        final String uri = baseURL + "feed/@" + station_id + "/?token=" + token;
 
         Object result = null;
         RestTemplate restTemplate = new RestTemplate();
