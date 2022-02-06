@@ -55,8 +55,8 @@ public class UserController {
         return createdUser;
     }
 
-    @PostMapping("/delete/{id}")
-    public ResponseEntity<Object> delete(@PathVariable int id, @RequestParam("code") String code){
+    @DeleteMapping("/delete/{id}/{code}")
+    public ResponseEntity<Object> delete(@PathVariable int id, @PathVariable(value="code") String code){
         try {
             this.userService.delete(id, code);
         }catch (Exception e){

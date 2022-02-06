@@ -21,8 +21,8 @@ public class CarController {
         this.carService = carService;
     }
 
-    @GetMapping("/user/{user_id}")
-    public List<Car> list(@PathVariable int user_id, @RequestParam("code") String code) {
+    @GetMapping("/user/{user_id}/{code}")
+    public List<Car> list(@PathVariable int user_id, @PathVariable(value="code") String code) {
         List<Car> cars = null;
         try {
             cars = this.carService.list(user_id, code);
