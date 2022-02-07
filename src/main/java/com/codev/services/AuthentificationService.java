@@ -30,7 +30,7 @@ public class AuthentificationService implements IAuthentificationService {
                 String mdp = user.getPassword();
                 // on génère le mot de passe avec les données de connexion
                 BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-                if (!encoder.matches(pwd, user.getPassword())){
+                if (!encoder.matches(pwd, mdp)){
                     return null;
                 }
             }
