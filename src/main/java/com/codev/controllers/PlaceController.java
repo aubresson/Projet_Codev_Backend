@@ -110,4 +110,15 @@ public class PlaceController {
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PostMapping("/user/add/{user_id}")
+    public ResponseEntity<Object> addForUser(@PathVariable int user_id, @RequestParam("place_id") int place_id,
+                                                 @RequestParam("code") String code){
+        try {
+            this.placeService.addForUser(user_id, place_id, code);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

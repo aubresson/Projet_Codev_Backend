@@ -14,6 +14,7 @@ public interface IPlaceService {
     Place create(Place place);
     Place update(int id, Place place, String code);
     void delete(int id, String code);
+    void addForUser(int user_id, int place_id, String code);
     void deleteForUser(int user_id, int place_id, String code);
     void changeDateResearch(int user_id, int place_id, String code);
     void changeFavorite(int user_id, int place_id, String code);

@@ -108,4 +108,15 @@ public class CarController {
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PostMapping("/user/add/{user_id}")
+    public ResponseEntity<Object> addForUser(@PathVariable int user_id, @RequestParam("car_id") int car_id,
+                                             @RequestParam("code") String code){
+        try {
+            this.carService.addForUser(user_id, car_id, code);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

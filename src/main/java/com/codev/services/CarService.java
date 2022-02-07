@@ -1,9 +1,8 @@
 package com.codev.services;
 
 import com.codev.domain.Car;
-import com.codev.domain.Place;
-import com.codev.domain.User;
 import com.codev.domain.UserCar;
+import com.codev.domain.UserPlace;
 import com.codev.repositories.CarRepository;
 import com.codev.repositories.UserCarRepository;
 import com.codev.repositories.UserRepository;
@@ -113,6 +112,17 @@ public class CarService implements ICarService {
             UserCar newUserCar = this.carRepository.findUserCar(user_id, car_id);
             newUserCar.setFavorite(newUserCar.getFavorite().equals("yes")?"no":"yes");
             this.userCarRepository.saveAndFlush(newUserCar);
+        }
+    }
+
+    public void addForUser(int user_id, int car_id, String code) {
+        if (userRepository.correctCode(code, user_id) || userRepository.isAdmin(code)) {
+            UserCar userCar = new UserCar();
+            userCar.setDate_research(new Date(Calendar.getInstance().getTime().getTime()));
+            userCar.setCarId(car_id);
+            userCar.setUserId(user_id);
+            userCar.setFavorite("no");
+            this.userCarRepository.saveAndFlush(userCar);
         }
     }
 }

@@ -95,6 +95,17 @@ public class PlaceService implements IPlaceService {
         }
     }
 
+    public void addForUser(int user_id, int place_id, String code) {
+        if (userRepository.correctCode(code, user_id) || userRepository.isAdmin(code)) {
+            UserPlace userPlace = new UserPlace();
+            userPlace.setDate_research(new Date(Calendar.getInstance().getTime().getTime()));
+            userPlace.setPlaceId(place_id);
+            userPlace.setUserId(user_id);
+            userPlace.setFavorite("no");
+            this.userPlaceRepository.saveAndFlush(userPlace);
+        }
+    }
+
     public void changeDateResearch(int user_id, int place_id, String code) {
         if (userRepository.correctCode(code, user_id)) {
             UserPlace newUserPlace = this.placeRepository.findUserPlace(user_id, place_id);
