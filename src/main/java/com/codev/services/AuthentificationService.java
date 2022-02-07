@@ -5,6 +5,7 @@ import com.codev.domain.User;
 import com.codev.domain.UserCodeId;
 import com.codev.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,7 +29,8 @@ public class AuthentificationService implements IAuthentificationService {
             try {
                 String mdp = user.getPassword();
                 // on génère le mot de passe avec les données de connexion
-                if (!pwd.equals(mdp)) {
+                BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+                if (!encoder.matches(pwd, user.getPassword())){
                     return null;
                 }
             }

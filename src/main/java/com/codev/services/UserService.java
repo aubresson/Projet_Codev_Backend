@@ -3,6 +3,8 @@ package com.codev.services;
 import com.codev.domain.User;
 import com.codev.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -39,6 +41,8 @@ public class UserService implements IUserService {
 
     public User create(User user){
         user.setCode(UUID.randomUUID().toString());
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole("user");
         return this.userRepository.saveAndFlush(user);
     }
