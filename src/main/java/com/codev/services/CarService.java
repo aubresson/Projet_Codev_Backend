@@ -62,7 +62,11 @@ public class CarService implements ICarService {
     }
 
     public Car create(Car car){
-        return this.carRepository.saveAndFlush(car);
+        Car carInBD = this.carRepository.getCar(car.getModele(), car.getMarque(), car.getCarburant(), car.getAnnee());
+        if (carInBD == null) {
+            return this.carRepository.saveAndFlush(car);
+        }
+        return carInBD;
     }
 
     public Car update(int id, Car car, String code){

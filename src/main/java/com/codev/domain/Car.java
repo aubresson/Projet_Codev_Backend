@@ -25,7 +25,7 @@ public class Car {
     }
 
     @Basic
-    @Column(name = "modele")
+    @Column(name = "modele", nullable = false)
     public String getModele() {
         return modele;
     }
@@ -35,7 +35,7 @@ public class Car {
     }
 
     @Basic
-    @Column(name = "marque")
+    @Column(name = "marque", nullable = false)
     public String getMarque() {
         return marque;
     }
@@ -45,7 +45,7 @@ public class Car {
     }
 
     @Basic
-    @Column(name = "carburant")
+    @Column(name = "carburant", nullable = false)
     public String getCarburant() {
         return carburant;
     }
@@ -55,7 +55,7 @@ public class Car {
     }
 
     @Basic
-    @Column(name = "annee")
+    @Column(name = "annee", nullable = false)
     public int getAnnee() {
         return annee;
     }

@@ -60,8 +60,11 @@ public class PlaceService implements IPlaceService {
         return this.placeRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
-    public Place create(Place place){
-        return this.placeRepository.saveAndFlush(place);
+    public Place create(Place place) {
+        if (!this.placeRepository.existsById(place.getId()))
+            return this.placeRepository.saveAndFlush(place);
+        else
+            return place;
     }
 
     public Place update(int id, Place place, String code){

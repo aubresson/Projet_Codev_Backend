@@ -29,4 +29,10 @@ public interface CarRepository extends JpaRepository<Car, Integer> {
 
     @Query("SELECT userCars FROM UserCar userCars WHERE userCars.user.id = :user_id AND userCars.car.id = :car_id")
     UserCar findUserCar(int user_id, int car_id);
+
+    @Query("SELECT car FROM Car car WHERE car.modele = :modele " +
+            "AND car.marque = :marque AND car.carburant = :carburant " +
+            "AND car.annee = :annee")
+    Car getCar(@Param("modele") String modele, @Param("marque") String marque,
+                   @Param("carburant") String carburant, @Param("annee") int annee);
 }
