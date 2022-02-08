@@ -6,7 +6,7 @@
     <artifactId>codev</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>projetCodevBackend</name>
+    <name>codev</name>
     <description>projetCodevBackend</description>
 
     <parent>
