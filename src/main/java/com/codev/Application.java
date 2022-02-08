@@ -9,11 +9,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @SpringBootApplication
 public class Application  extends SpringBootServletInitializer {
-    @RequestMapping("/")
-    @ResponseBody
-    String home() {
-        return "Hello World!";
-    }
 
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(Application.class);
