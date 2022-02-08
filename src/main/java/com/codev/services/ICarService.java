@@ -1,7 +1,6 @@
 package com.codev.services;
 
 import com.codev.domain.Car;
-import com.codev.domain.User;
 
 import java.util.List;
 

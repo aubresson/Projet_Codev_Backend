@@ -1,7 +1,6 @@
 package com.codev.controllers;
 
 import com.codev.services.CarPollutionService;
-import com.codev.services.PollutionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +15,7 @@ import java.util.Objects;
 @RequestMapping("/car_pollution")
 public class CarPollutionController {
 
-    private CarPollutionService carPollutionService;
+    private final CarPollutionService carPollutionService;
     private final String baseURL = "https://public.opendatasoft.com/api/records/1.0/search/?dataset=vehicules-commercialises&";
 
     @Autowired

@@ -1,12 +1,9 @@
 package com.codev.controllers;
 
 import com.codev.domain.LogiParam;
-import com.codev.domain.User;
 import com.codev.domain.UserCodeId;
 import com.codev.services.AuthentificationService;
-import com.codev.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +15,7 @@ public class AuthController {
 
     // Authorided va réaliser une instanciation de notre objet
     // à travers le constructeur de la classe
-    private AuthentificationService authentificationService;
+    private final AuthentificationService authentificationService;
 
     @Autowired
     public AuthController(AuthentificationService authentificationService) {

@@ -1,13 +1,11 @@
 package com.codev.controllers;
 
-import com.codev.services.CarService;
 import com.codev.services.PollutionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import javax.websocket.server.PathParam;
 import java.util.LinkedHashMap;
 import java.util.Objects;
 
@@ -16,10 +14,10 @@ import java.util.Objects;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/pollution")
 public class PollutionController {
-    private String token = "fae9ff808ae67e1fb014cc038e677937b4511a5c";
+    private final String token = "fae9ff808ae67e1fb014cc038e677937b4511a5c";
 
-    private PollutionService pollutionService;
-    private String baseURL = "https://api.waqi.info/";
+    private final PollutionService pollutionService;
+    private final String baseURL = "https://api.waqi.info/";
 
     @Autowired
     public PollutionController(PollutionService pollutionService) {

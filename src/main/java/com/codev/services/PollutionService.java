@@ -1,15 +1,9 @@
 package com.codev.services;
 
-import com.codev.domain.User;
-import com.codev.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.UUID;
 
 @Service
 public class PollutionService implements IPollutionService {

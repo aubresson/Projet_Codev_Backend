@@ -8,7 +8,7 @@ import java.sql.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name = "user_place", schema = "codev", catalog = "")
+@Table(name = "user_place", schema = "codev")
 @IdClass(UserPlacePK.class)
 public class UserPlace {
     private int userId;

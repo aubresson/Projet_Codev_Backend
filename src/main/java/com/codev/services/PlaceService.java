@@ -1,10 +1,10 @@
 package com.codev.services;
 
-import com.codev.domain.Car;
 import com.codev.domain.Place;
-import com.codev.domain.UserCar;
 import com.codev.domain.UserPlace;
-import com.codev.repositories.*;
+import com.codev.repositories.PlaceRepository;
+import com.codev.repositories.UserPlaceRepository;
+import com.codev.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

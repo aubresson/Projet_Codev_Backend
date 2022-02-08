@@ -1,18 +1,16 @@
 package com.codev.domain;
 
 public class LogiParam {
-    private String nomUtil;
-    private String password;
+    private final String nomUtil;
+    private final String password;
+
+    public LogiParam(String nomUtil, String password) {
+        this.nomUtil = nomUtil;
+        this.password = password;
+    }
 
     public String getPassword() {
         return password;
-    }
-    public void setNomUtil(String nomUtil) {
-        this.nomUtil = nomUtil;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
 

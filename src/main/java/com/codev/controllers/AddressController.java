@@ -1,7 +1,6 @@
 package com.codev.controllers;
 
 import com.codev.services.AddressService;
-import com.codev.services.CarPollutionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +16,7 @@ import java.util.Objects;
 @RequestMapping("/address")
 public class AddressController {
 
-    private AddressService addressService;
-    private final String baseURL = "https://api-adresse.data.gouv.fr/search/?";
+    private final AddressService addressService;
 
     @Autowired
     public AddressController(AddressService addressService) {
@@ -28,13 +26,14 @@ public class AddressController {
     @GetMapping
     private Object getAddresses(@RequestParam("zip_code") String zip_code)
     {
+        String baseURL = "https://api-adresse.data.gouv.fr/search/?";
         final String uri = baseURL + "q=" + zip_code + "&type=municipality&limit=5&postcode=" + zip_code;
 
-        Object result = null;
+        ArrayList<?> result = null;
         RestTemplate restTemplate = new RestTemplate();
         try {
             result = addressService.list(Objects.requireNonNull(restTemplate.getForObject(uri, LinkedHashMap.class)));
-            if (((ArrayList)result).size() == 0){
+            if (result.size() == 0){
                 return getAddresses(Integer.toString(Integer.parseInt(zip_code) + 1));
             }
         } catch (Exception e) {

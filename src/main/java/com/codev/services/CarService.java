@@ -2,7 +2,6 @@ package com.codev.services;
 
 import com.codev.domain.Car;
 import com.codev.domain.UserCar;
-import com.codev.domain.UserPlace;
 import com.codev.repositories.CarRepository;
 import com.codev.repositories.UserCarRepository;
 import com.codev.repositories.UserRepository;

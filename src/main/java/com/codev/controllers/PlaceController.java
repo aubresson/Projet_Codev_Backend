@@ -1,8 +1,6 @@
 package com.codev.controllers;
 
-import com.codev.domain.Car;
 import com.codev.domain.Place;
-import com.codev.services.CarService;
 import com.codev.services.PlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

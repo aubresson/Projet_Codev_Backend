@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
-import java.util.Set;
 
 @Service
 public class CarPollutionService implements ICarPollutionService {

@@ -1,11 +1,10 @@
 package com.codev.domain;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "car", schema = "codev", catalog = "")
+@Table(name = "car", schema = "codev")
 public class Car {
     private int id;
     private String modele;

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthentificationService implements IAuthentificationService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public AuthentificationService(UserRepository userRepository) {
@@ -26,18 +26,14 @@ public class AuthentificationService implements IAuthentificationService {
         String pwd = unUti.getPassword();
         user = userRepository.findByUsername(unUti.getNomUtil());
         if (user != null) {
-            try {
-                String mdp = user.getPassword();
-                // on génère le mot de passe avec les données de connexion
-                BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-                if (!encoder.matches(pwd, mdp)){
-                    return null;
-                }
-            }
-            catch (Exception e) {
-                throw e;
+            String mdp = user.getPassword();
+            // on génère le mot de passe avec les données de connexion
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            if (!encoder.matches(pwd, mdp)){
+                return null;
             }
         }
+        assert user != null;
         userCodeId.setCode(user.getCode());
         userCodeId.setId(user.getId());
         return userCodeId;
