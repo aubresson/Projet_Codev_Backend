@@ -1,1 +1,0 @@
-worker: ./bin/icka -forever
