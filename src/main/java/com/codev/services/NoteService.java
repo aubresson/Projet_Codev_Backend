@@ -1,0 +1,30 @@
+package com.codev.services;
+
+import com.codev.domain.Car;
+import com.codev.domain.UserCar;
+import com.codev.repositories.CarRepository;
+import com.codev.repositories.UserCarRepository;
+import com.codev.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityNotFoundException;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+
+@Service
+public class NoteService implements INoteService {
+
+    @Autowired
+    public NoteService() {}
+
+    public HashMap<String, Integer> calculate(double carCO2, double airCO2){
+        HashMap<String, Integer> result = new HashMap<>();
+        result.put("note", 50);
+        return result;
+    }
+}
+
