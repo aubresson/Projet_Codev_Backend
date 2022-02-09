@@ -23,7 +23,7 @@ public class NoteService implements INoteService {
 
     public HashMap<String, Integer> calculate(double carCO2, double airCO2){
         HashMap<String, Integer> result = new HashMap<>();
-        result.put("note", 100 - Math.min(100, Math.max(0, (int)(0.2*carCO2+2*airCO2))));
+        result.put("note", 100 - Math.min(100, Math.max(0, (int)(0.13*carCO2+1.7*airCO2))));
         return result;
     }
 }
